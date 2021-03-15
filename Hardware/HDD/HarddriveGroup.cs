@@ -24,7 +24,7 @@ namespace OpenHardwareMonitor.Hardware.HDD {
       new List<AbstractHarddrive>();
 
     public HarddriveGroup(ISettings settings) {
-      if (OperatingSystem.IsUnix) 
+      if (!System.OperatingSystem.IsWindows())
         return;
 
       ISmart smart = new WindowsSmart();

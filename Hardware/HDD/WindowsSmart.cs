@@ -14,9 +14,10 @@ using System;
 using System.Collections.Generic;
 using System.Management;
 using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
 
 namespace OpenHardwareMonitor.Hardware.HDD {
-
+  [SupportedOSPlatform("windows")]
   internal class WindowsSmart : ISmart {
     [Flags]
     protected enum AccessMode : uint {     

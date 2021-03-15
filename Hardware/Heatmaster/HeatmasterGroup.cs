@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO.Ports;
+using System.Runtime.Versioning;
 using System.Security;
 using System.Text;
 using System.Threading;
@@ -40,7 +41,7 @@ namespace OpenHardwareMonitor.Hardware.Heatmaster {
       }
       throw new TimeoutException();
     }
-
+    [SupportedOSPlatform("windows")]
     private static string[] GetRegistryPortNames() {
       List<string> result = new List<string>();
       string[] paths = { "", "&MI_00" };
@@ -69,8 +70,11 @@ namespace OpenHardwareMonitor.Hardware.Heatmaster {
       // No implementation for Heatmaster on Unix systems      
       if (OperatingSystem.IsUnix)
         return;
-
-      string[] portNames = GetRegistryPortNames();      
+      string[] portNames;
+      if (System.OperatingSystem.IsWindows())
+        portNames = GetRegistryPortNames();
+      else
+        portNames = new string[0];
       for (int i = 0; i < portNames.Length; i++) {
         bool isValid = false;
         try {        

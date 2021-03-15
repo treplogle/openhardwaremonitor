@@ -63,7 +63,7 @@ namespace OpenHardwareMonitor.Hardware {
         this.biosInformation = new BIOSInformation(biosVendor, biosVersion);
 
         this.memoryDevices = new MemoryDevice[0];
-      } else {              
+      } else if (global::System.OperatingSystem.IsWindows()) {
         List<Structure> structureList = new List<Structure>();
         List<MemoryDevice> memoryDeviceList = new List<MemoryDevice>();
 

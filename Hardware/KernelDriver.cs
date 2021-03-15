@@ -68,10 +68,14 @@ namespace OpenHardwareMonitor.Hardware {
       try {
         // restrict the driver access to system (SY) and builtin admins (BA)
         // TODO: replace with a call to IoCreateDeviceSecure in the driver
-        FileSecurity fileSecurity = File.GetAccessControl(@"\\.\" + id);
-        fileSecurity.SetSecurityDescriptorSddlForm(
-          "O:BAG:SYD:(A;;FA;;;SY)(A;;FA;;;BA)");
-        File.SetAccessControl(@"\\.\" + id, fileSecurity);
+        if (System.OperatingSystem.IsWindows())
+        {
+            var fi = new FileInfo(@"\\.\" + id);
+            FileSecurity fileSecurity = fi.GetAccessControl();
+            fileSecurity.SetSecurityDescriptorSddlForm(
+                "O:BAG:SYD:(A;;FA;;;SY)(A;;FA;;;BA)");
+            fi.SetAccessControl(fileSecurity);
+        }
       } catch { }
 
       errorMessage = null;
@@ -279,13 +283,14 @@ namespace OpenHardwareMonitor.Hardware {
 
       [DllImport(KERNEL, CallingConvention = CallingConvention.Winapi)]
       public static extern bool DeviceIoControl(SafeFileHandle device,
-        IOControlCode ioControlCode, 
-        [MarshalAs(UnmanagedType.AsAny)] [In] object inBuffer, 
+        IOControlCode ioControlCode,
+#pragma warning disable CS0618 // Type or member is obsolete
+        [MarshalAs(UnmanagedType.AsAny)] [In] object inBuffer,
         uint inBufferSize,
         [MarshalAs(UnmanagedType.AsAny)] [Out] object outBuffer,
         uint nOutBufferSize, out uint bytesReturned, IntPtr overlapped);
-
-      [DllImport(KERNEL, CallingConvention = CallingConvention.Winapi, 
+#pragma warning restore CS0618 // Type or member is obsolete
+        [DllImport(KERNEL, CallingConvention = CallingConvention.Winapi, 
         SetLastError = true)]
       public static extern IntPtr CreateFile(string lpFileName,
         FileAccess dwDesiredAccess, uint dwShareMode, 
