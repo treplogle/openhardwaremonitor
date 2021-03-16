@@ -17,7 +17,8 @@ namespace OpenHardwareMonitor.Hardware {
     SuperIO,
     CPU,
     RAM,
-    GPU,
+    GpuNvidia,
+    GpuAti,    
     TBalancer,
     Heatmaster,
     HDD

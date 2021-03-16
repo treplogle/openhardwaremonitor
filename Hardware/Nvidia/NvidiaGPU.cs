@@ -119,14 +119,14 @@ namespace OpenHardwareMonitor.Hardware.Nvidia {
     private static string GetName(NvPhysicalGpuHandle handle) {
       string gpuName;
       if (NVAPI.NvAPI_GPU_GetFullName(handle, out gpuName) == NvStatus.OK) {
-        return gpuName.Trim();
+        return "NVIDIA " + gpuName.Trim();
       } else {
         return "NVIDIA";
       }
     }
 
     public override HardwareType HardwareType {
-      get { return HardwareType.GPU; }
+      get { return HardwareType.GpuNvidia; }
     }
 
     private NvGPUThermalSettings GetThermalSettings() {
