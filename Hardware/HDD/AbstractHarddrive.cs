@@ -16,9 +16,10 @@ using System.Globalization;
 using System.IO;
 using System.Text;
 using OpenHardwareMonitor.Collections;
+using OpenHardwareMonitorLib.Hardware.HDD;
 
 namespace OpenHardwareMonitor.Hardware.HDD {
-  internal abstract class AbstractHarddrive : Hardware {
+  internal abstract class AbstractHarddrive : Hardware, IDriveIndex {
 
     private const int UPDATE_DIVIDER = 30; // update only every 30s
 
@@ -45,6 +46,8 @@ namespace OpenHardwareMonitor.Hardware.HDD {
 
     private DriveInfo[] driveInfos;
     private Sensor usageSensor;
+
+    public int DriveIndex => index;
 
     protected AbstractHarddrive(ISmart smart, string name, 
       string firmwareRevision, int index, 

@@ -13,7 +13,9 @@ using System.Globalization;
 using System.Text;
 
 namespace OpenHardwareMonitor.Hardware.ATI {
-  internal sealed class ATIGPU : Hardware {
+  internal sealed class ATIGPU : Hardware, IAdapterIndex {
+
+    public int AdapterIndex => adapterIndex;
 
     private readonly int adapterIndex;
     private readonly int busNumber;

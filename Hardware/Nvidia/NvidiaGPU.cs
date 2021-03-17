@@ -14,7 +14,9 @@ using System.Globalization;
 using System.Text;
 
 namespace OpenHardwareMonitor.Hardware.Nvidia {
-  internal class NvidiaGPU : Hardware {
+  internal class NvidiaGPU : Hardware, IAdapterIndex {
+
+    public int AdapterIndex => adapterIndex;
 
     private readonly int adapterIndex;
     private readonly NvPhysicalGpuHandle handle;
