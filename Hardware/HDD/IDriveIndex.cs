@@ -1,5 +1,5 @@
 ﻿
-namespace OpenHardwareMonitorLib.Hardware.HDD
+namespace OpenHardwareMonitor.Hardware.HDD
 {
     public interface IDriveIndex
     {

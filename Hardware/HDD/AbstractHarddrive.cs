@@ -16,7 +16,6 @@ using System.Globalization;
 using System.IO;
 using System.Text;
 using OpenHardwareMonitor.Collections;
-using OpenHardwareMonitorLib.Hardware.HDD;
 
 namespace OpenHardwareMonitor.Hardware.HDD {
   internal abstract class AbstractHarddrive : Hardware, IDriveIndex {
